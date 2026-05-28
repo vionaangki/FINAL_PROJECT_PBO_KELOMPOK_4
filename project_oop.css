@@ -1,0 +1,2061 @@
+/* DESIGN TOKENS & VARIABLE DECLARATION */
+:root {
+    --primary-color: #0d6efd;
+    --primary-hover: #0b5ed7;
+    --secondary-color: #6c757d;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --dark-bg: #111827;
+    --light-bg: #f8f9fa;
+    --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --border-radius: 12px;
+    --transition-speed: 0.3s;
+    --font-family: 'Poppins', sans-serif;
+    
+    /* LIGHT THEME VARIABLES */
+    --theme-bg: #f8f9fa;
+    --theme-card-bg: #ffffff;
+    --theme-text-primary: #1f2937;
+    --theme-text-secondary: #4b5563;
+    --theme-border: #e5e7eb;
+    --theme-nav-bg: rgba(255, 255, 255, 0.95);
+    --theme-nav-text: #1f2937;
+}
+
+/* DARK THEME VARIABLE OVERRIDES */
+body.dark-theme {
+    --theme-bg: #0f172a;
+    --theme-card-bg: #1e293b;
+    --theme-text-primary: #f8fafc;
+    --theme-text-secondary: #cbd5e1;
+    --theme-border: #334155;
+    --theme-nav-bg: rgba(15, 23, 42, 0.95);
+    --theme-nav-text: #f8fafc;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--theme-bg);
+    color: var(--theme-text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+
+/* BRAND LOGO DESIGN */
+.brand-logo-img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+/* THEME MODE TOGGLE BUTTON POJOK KANAN */
+.nav-right-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.theme-toggle-btn {
+    background: none;
+    border: 1px solid var(--theme-border);
+    color: var(--theme-nav-text);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: all var(--transition-speed) ease;
+}
+
+.theme-toggle-btn:hover {
+    background-color: rgba(13, 110, 253, 0.1);
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* GLOBAL UTILITY CLASSES */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.line {
+    width: 60px;
+    height: 4px;
+    background-color: var(--primary-color);
+    margin: 10px auto 25px auto;
+    border-radius: 2px;
+}
+
+/* BUTTONS */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 28px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+    border: none;
+    text-decoration: none;
+    gap: 8px;
+}
+
+.btn-sm {
+    padding: 6px 14px;
+    font-size: 13px;
+    border-radius: 6px;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+}
+
+.btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+/* BUTTON BATALKAN CUSTOM */
+.btn-batalkan {
+    background-color: var(--danger-color) !important;
+    color: white !important;
+    border: none !important;
+}
+
+.btn-batalkan:hover {
+    background-color: #bd2130 !important;
+    transform: translateY(-2px);
+}
+
+#formPemesanan .btn-secondary,
+.modal-buttons .btn-secondary {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+}
+
+#formPemesanan .btn-secondary:hover,
+.modal-buttons .btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.btn-success {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #157347;
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #bb2d3b;
+}
+
+/* NAVBAR DESIGN */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--theme-nav-bg);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+    transition: all var(--transition-speed);
+    border-bottom: 1px solid var(--theme-border);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--theme-nav-text);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo span {
+    color: var(--primary-color);
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.nav-link {
+    color: var(--theme-text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.01em;
+    transition: color var(--transition-speed), background-color var(--transition-speed), padding var(--transition-speed);
+    white-space: nowrap;
+    padding: 6px 12px;
+    border-radius: 8px;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
+    background-color: rgba(13, 110, 253, 0.08);
+}
+
+/* Tombol aktif navbar - warna beda, smooth transition */
+.nav-link.active {
+    color: var(--primary-color);
+    background-color: rgba(13, 110, 253, 0.12);
+    font-weight: 700;
+}
+
+.btn-login-nav {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background var(--transition-speed);
+}
+
+.btn-login-nav:hover {
+    background-color: var(--primary-hover);
+}
+
+.btn-admin-panel {
+    background-color: #7c3aed;
+    color: white;
+    border: none;
+    padding: 7px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: background var(--transition-speed);
+}
+
+.btn-admin-panel:hover {
+    background-color: #6d28d9;
+}
+
+.user-session-info {
+    font-size: 14px;
+    color: var(--theme-text-primary);
+    font-weight: 600;
+    background: var(--theme-bg);
+    padding: 5px 12px;
+    border-radius: 12px;
+    border: 1px solid var(--theme-border);
+}
+
+.nav-toggle {
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--theme-nav-text);
+}
+
+/* HERO SECTION (BLUR BACKGROUND) */
+.hero-section {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    padding-top: 80px;
+    overflow: hidden;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Fallback background jika gambar di HTML tidak ada */
+    background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('gambar/gambar background.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(4px); /* Efek blur background mobil */
+    transform: scale(1.05); /* Menghindari white edge saat diblur */
+    z-index: 1;
+    /* Responsive: pastikan background selalu menutupi layar */
+    min-height: 100%;
+    min-width: 100%;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.hero-content p {
+    font-size: 18px;
+    margin-bottom: 35px;
+    font-weight: 300;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.2);
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* SECTION HEADER */
+.section-header {
+    text-align: center;
+    padding: 80px 20px 20px 20px;
+}
+
+.section-header h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--theme-text-primary);
+}
+
+.section-header p {
+    color: var(--theme-text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* CAR FILTER */
+.car-filter {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 35px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 8px 20px;
+    background-color: var(--theme-card-bg);
+    color: var(--theme-text-primary);
+    border: 1px solid var(--theme-border);
+    border-radius: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.filter-btn.active, .filter-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* CARS CATALOG GRID */
+.cars-section {
+    padding-bottom: 80px;
+    background-color: var(--theme-bg);
+}
+
+.cars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.car-card {
+    background-color: var(--theme-card-bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid var(--theme-border);
+    display: flex;
+    flex-direction: column;
+}
+
+.car-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+.car-card-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    background-color: var(--theme-bg);
+}
+
+.car-card-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.car-card-merk {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+.car-card-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--theme-text-primary);
+    margin-bottom: 10px;
+}
+
+.car-features {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: var(--theme-text-secondary);
+    border-top: 1px solid var(--theme-border);
+    padding-top: 12px;
+}
+
+.car-feature-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.car-price-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    border-top: 1px solid var(--theme-border);
+    padding-top: 15px;
+}
+
+.car-price {
+    display: flex;
+    flex-direction: column;
+}
+
+.car-price-val {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--theme-text-primary);
+}
+
+.car-price-unit {
+    font-size: 11px;
+    color: var(--theme-text-secondary);
+}
+
+/* CARA SEWA STEPS */
+.steps-section {
+    background-color: var(--theme-bg);
+    padding-bottom: 80px;
+    border-top: 1px solid var(--theme-border);
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.step-card {
+    background-color: var(--theme-card-bg);
+    border-radius: var(--border-radius);
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--theme-border);
+}
+
+.step-icon {
+    width: 80px;
+    height: 80px;
+    background-color: rgba(13, 110, 253, 0.1);
+    color: var(--primary-color);
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 0 auto 20px auto;
+}
+
+.step-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--theme-text-primary);
+}
+
+.step-card p {
+    font-size: 14px;
+    color: var(--theme-text-secondary);
+}
+
+/* CONTACT & MAP SECTION */
+.contact-section {
+    background-color: var(--theme-bg);
+    padding-bottom: 80px;
+    border-top: 1px solid var(--theme-border);
+}
+
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.contact-info h3, .contact-map h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--theme-text-primary);
+}
+
+.contact-info p {
+    color: var(--theme-text-secondary);
+    margin-bottom: 30px;
+}
+
+.contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    color: white;
+    gap: 20px;
+    transition: transform 0.3s;
+}
+
+.contact-item:hover {
+    transform: translateX(5px);
+}
+
+.contact-item.wa {
+    background-color: #25d366;
+}
+
+.contact-item.ig {
+    background-image: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.contact-item.tt {
+    background-color: #000000;
+}
+
+.contact-item i {
+    font-size: 30px;
+}
+
+.contact-item div {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-item span {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.contact-item strong {
+    font-size: 16px;
+}
+
+.contact-map .map-wrapper {
+    width: 100%;
+    height: 350px;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--theme-border);
+}
+
+.contact-map iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* MODALS LAYOUT & STYLING */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 20px;
+}
+
+.auth-modal {
+    background-color: var(--theme-card-bg);
+    width: 100%;
+    max-width: 450px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    padding: 30px;
+    position: relative;
+    animation: zoomIn 0.3s ease;
+    border: 1px solid var(--theme-border);
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 30px;
+    font-weight: 300;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--theme-text-secondary);
+    transition: color 0.2s;
+}
+
+.close-modal:hover {
+    color: var(--theme-text-primary);
+}
+
+.auth-tabs {
+    display: flex;
+    border-bottom: 2px solid var(--theme-border);
+    margin-bottom: 25px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 12px;
+    text-align: center;
+    font-weight: 600;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--theme-text-secondary);
+    transition: all 0.3s;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+}
+
+.tab-btn.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--theme-text-primary);
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    padding: 11px 16px;
+    border: 1px solid var(--theme-border);
+    background-color: var(--theme-bg);
+    color: var(--theme-text-primary);
+    border-radius: 8px;
+    font-family: var(--font-family);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--primary-color);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.input-desc {
+    font-size: 11px;
+    color: var(--theme-text-secondary);
+}
+
+.password-strength-text {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.auth-helper {
+    font-size: 13px;
+    text-align: center;
+    margin-top: 15px;
+    color: var(--theme-text-secondary);
+}
+
+.auth-helper a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* CUSTOMER DASHBOARD AFTER LOGIN */
+.customer-dashboard {
+    padding-top: 80px;
+    background-color: var(--theme-bg);
+}
+
+.dashboard-header-bg {
+    background-image: linear-gradient(135deg, #1e3a8a, #0d6efd);
+    color: white;
+    padding: 50px 0;
+}
+
+.dashboard-header-bg .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.dashboard-header-bg h2 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.dashboard-header-bg p {
+    opacity: 0.9;
+}
+
+.dashboard-container {
+    max-width: 1200px;
+    margin: -30px auto 50px auto;
+    background: var(--theme-card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    padding: 30px;
+    min-height: 400px;
+    border: 1px solid var(--theme-border);
+}
+
+.dashboard-tabs {
+    display: flex;
+    gap: 15px;
+    border-bottom: 2px solid var(--theme-border);
+    margin-bottom: 25px;
+}
+
+.dash-tab {
+    padding: 12px 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--theme-text-secondary);
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s;
+}
+
+.dash-tab.active, .dash-tab:hover {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+.dash-content-pane {
+    display: none;
+}
+
+.dash-content-pane.active {
+    display: block;
+}
+
+.select-car-notice {
+    background-color: rgba(13, 110, 253, 0.1);
+    border-left: 4px solid var(--primary-color);
+    padding: 15px;
+    border-radius: 4px;
+    font-size: 14px;
+    color: var(--theme-text-primary);
+    margin-bottom: 25px;
+}
+
+.quick-cars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+/* MY BOOKINGS (DATA PEMESANAN AKTIF PELANGGAN) */
+.my-booking-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.booking-ticket {
+    background-color: var(--theme-card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border: 1px solid var(--theme-border);
+    overflow: hidden;
+}
+
+.ticket-header {
+    background-color: var(--theme-bg);
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--theme-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.ticket-id {
+    font-weight: 700;
+    color: var(--theme-text-primary);
+}
+
+.badge {
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.badge-pending { background-color: #fef3c7; color: #d97706; }
+.badge-menunggu { background-color: #eff6ff; color: #2563eb; }
+.badge-disetujui { background-color: #dcfce7; color: #15803d; }
+.badge-ditolak { background-color: #fee2e2; color: #b91c1c; }
+
+.ticket-body {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.ticket-details h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: var(--theme-text-primary);
+}
+
+.ticket-details p {
+    font-size: 14px;
+    color: var(--theme-text-secondary);
+    margin-bottom: 5px;
+}
+
+.ticket-payment-state {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    border-left: 1px solid var(--theme-border);
+    padding-left: 20px;
+    gap: 10px;
+}
+
+/* BOOKING MODAL (SPLIT LAYOUT) */
+.booking-modal-container {
+    background-color: var(--theme-card-bg);
+    width: 100%;
+    max-width: 850px;
+    border-radius: var(--border-radius);
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    animation: zoomIn 0.3s ease;
+    border: 1px solid var(--theme-border);
+}
+
+.booking-modal-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--theme-text-primary);
+    border-bottom: 2px solid var(--theme-border);
+    padding-bottom: 10px;
+}
+
+.booking-split-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 30px;
+}
+
+.readonly-input {
+    background-color: var(--theme-bg);
+    color: var(--theme-text-secondary);
+    cursor: not-allowed;
+    font-weight: 600;
+}
+
+.sopir-option-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background-color: rgba(25, 135, 84, 0.1);
+    border: 1px solid rgba(25, 135, 84, 0.2);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    margin: 20px 0;
+}
+
+.sopir-option-box input {
+    margin-top: 4px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.sopir-option-box label {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.sopir-option-box strong {
+    font-size: 14px;
+    color: var(--theme-text-primary);
+}
+
+.sopir-option-box span {
+    font-size: 12px;
+    color: var(--theme-text-secondary);
+}
+
+.booking-action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.booking-summary-right {
+    background-color: var(--theme-bg);
+    border-radius: var(--border-radius);
+    padding: 25px;
+    border: 1px solid var(--theme-border);
+    display: flex;
+    flex-direction: column;
+}
+
+.booking-summary-right h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--theme-text-primary);
+    margin-bottom: 20px;
+}
+
+.summary-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: var(--theme-text-secondary);
+}
+
+.summary-row strong {
+    color: var(--theme-text-primary);
+}
+
+.total-row {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--theme-text-primary);
+    padding-top: 10px;
+}
+
+.total-row strong {
+    color: var(--primary-color);
+}
+
+/* PAYMENT MODAL & QRIS DESIGN */
+.payment-modal-container {
+    background-color: var(--theme-card-bg);
+    width: 100%;
+    max-width: 500px;
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: var(--card-shadow);
+    animation: zoomIn 0.3s ease;
+    border: 1px solid var(--theme-border);
+}
+
+.payment-summary-box {
+    background-color: var(--theme-bg);
+    border: 1px dashed var(--theme-border);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.payment-summary-box h4 {
+    margin-bottom: 8px;
+    color: var(--theme-text-primary);
+}
+
+.bank-account-box {
+    background-color: rgba(13, 110, 253, 0.1);
+    border: 1px solid rgba(13, 110, 253, 0.2);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.rekening-number {
+    font-size: 20px;
+    color: var(--primary-color);
+    margin: 8px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.rekening-number button {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.bank-holder {
+    font-size: 12px;
+    color: var(--theme-text-secondary);
+    opacity: 0.8;
+}
+
+/* QRIS AREA PAYMENT STYLE */
+.qris-payment-box {
+    background-color: #ffffff;
+    border: 2px solid var(--theme-border);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    margin-top: 15px;
+    text-align: center;
+    color: #000000;
+}
+
+.qris-payment-box p {
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    color: #475569;
+}
+
+.qris-image-wrapper {
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+    display: inline-block;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.qris-scanner-img {
+    width: 220px;
+    height: 220px;
+    object-fit: contain;
+}
+
+.qris-subtitle {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-top: 8px;
+}
+
+.payment-action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+/* ADMIN PANEL LAYOUT & MENUS */
+.admin-dashboard {
+    padding-top: 80px;
+    background-color: var(--theme-bg);
+    min-height: 100vh;
+}
+
+.admin-top-bar {
+    background-color: #1e293b;
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.admin-top-bar h2 {
+    font-size: 20px;
+}
+
+.admin-layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    min-height: calc(100vh - 140px);
+}
+
+.admin-sidebar {
+    background-color: #0f172a;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.admin-nav-btn {
+    text-align: left;
+    background: none;
+    border: none;
+    color: #94a3b8;
+    padding: 12px 15px;
+    font-size: 14px;
+    font-family: var(--font-family);
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-nav-btn:hover, .admin-nav-btn.active {
+    background-color: #1e293b;
+    color: white;
+}
+
+.admin-main-content {
+    padding: 30px;
+}
+
+.admin-tab-content {
+    display: none;
+}
+
+.admin-tab-content.active {
+    display: block;
+}
+
+.admin-welcome-card {
+    background-color: var(--theme-card-bg);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--theme-border);
+    margin-bottom: 25px;
+}
+
+.stats-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.stat-card {
+    background-color: var(--theme-card-bg);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border: 1px solid var(--theme-border);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+.stat-card .icon {
+    font-size: 35px;
+    color: var(--primary-color);
+    background-color: rgba(13, 110, 253, 0.1);
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+}
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-num {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--theme-text-primary);
+}
+
+.stat-label {
+    font-size: 13px;
+    color: var(--theme-text-secondary);
+}
+
+/* CRUD MODALS & TABLES */
+.content-header-crud {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.content-header-crud h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--theme-text-primary);
+}
+
+.table-responsive {
+    overflow-x: auto;
+    background-color: var(--theme-card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+    border: 1px solid var(--theme-border);
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
+}
+
+.admin-table th {
+    background-color: var(--theme-bg);
+    padding: 15px;
+    color: var(--theme-text-primary);
+    font-weight: 600;
+    border-bottom: 1px solid var(--theme-border);
+}
+
+.admin-table td {
+    padding: 15px;
+    border-bottom: 1px solid var(--theme-border);
+    color: var(--theme-text-primary);
+    vertical-align: middle;
+}
+
+.admin-table tr:hover {
+    background-color: var(--theme-bg);
+}
+
+.table-action-btn {
+    padding: 6px 10px;
+    font-size: 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* PERBANYAK DAN PERJELAS KONTRAS WARNA UNTUK TOMBOL "LIHAT BUKTI" ADMIN */
+.table-action-btn.view-proof-btn {
+    background-color: #0284c7 !important;
+    color: #ffffff !important;
+    padding: 8px 12px;
+    font-weight: 700;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);
+    transition: all 0.2s ease;
+}
+
+.table-action-btn.view-proof-btn:hover {
+    background-color: #0369a1 !important;
+    transform: scale(1.05);
+}
+
+.table-action-btn.edit {
+    background-color: rgba(255, 193, 7, 0.2);
+    color: #eab308;
+}
+
+.table-action-btn.edit:hover {
+    background-color: #eab308;
+    color: #000;
+}
+
+.table-action-btn.delete {
+    background-color: rgba(220, 53, 69, 0.15);
+    color: var(--danger-color);
+}
+
+.table-action-btn.delete:hover {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+.admin-table-img {
+    width: 60px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.modal-form-box {
+    background-color: var(--theme-card-bg);
+    width: 100%;
+    max-width: 500px;
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    animation: zoomIn 0.3s ease;
+    border: 1px solid var(--theme-border);
+}
+
+.modal-form-box.wide-modal {
+    max-width: 700px;
+}
+
+.modal-form-box h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--theme-border);
+    padding-bottom: 10px;
+    color: var(--theme-text-primary);
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.proof-image-preview-box {
+    width: 100%;
+    max-height: 400px;
+    border-radius: var(--border-radius);
+    overflow-y: auto;
+    border: 1px solid var(--theme-border);
+    padding: 10px;
+}
+
+.proof-image-preview-box img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* TOAST NOTIFICATION */
+.toast {
+    position: fixed;
+    top: 90px;
+    right: 20px;
+    background-color: #1e293b;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+    animation: slideIn 0.3s ease;
+}
+
+.toast.success {
+    border-left: 5px solid var(--success-color);
+}
+
+.toast.danger {
+    border-left: 5px solid var(--danger-color);
+}
+
+/* FOOTER DESIGN */
+.main-footer {
+    background-color: var(--dark-bg);
+    color: #a3a3a3;
+    padding: 60px 0 20px 0;
+    border-top: 1px solid var(--theme-border);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-about h3 {
+    font-size: 24px;
+    color: white;
+    margin-bottom: 20px;
+    font-weight: 800;
+}
+
+.footer-about h3 span {
+    color: var(--primary-color);
+}
+
+.footer-quick-links h4, .footer-contact h4 {
+    color: white;
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.footer-quick-links ul {
+    list-style: none;
+}
+
+.footer-quick-links li {
+    margin-bottom: 10px;
+}
+
+.footer-quick-links a {
+    color: #a3a3a3;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-quick-links a:hover {
+    color: white;
+}
+
+.footer-contact p {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-contact i {
+    color: var(--primary-color);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #1f2937;
+    font-size: 14px;
+}
+
+/* ANIMATIONS */
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* RESPONSIVE BREAKPOINTS (MOBILE, TABLET, DESKTOP COPATIBILITY) */
+@media (max-width: 991px) {
+    .hero-content h1 {
+        font-size: 38px;
+    }
+    
+    .steps-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .contact-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .booking-split-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .admin-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .admin-sidebar {
+        flex-direction: row;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding: 10px;
+    }
+    
+    .admin-nav-btn {
+        padding: 8px 15px;
+        font-size: 12px;
+    }
+    
+    .stats-cards-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: block;
+    }
+    
+    .nav-menu {
+        position: absolute;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        background-color: var(--theme-card-bg);
+        border-bottom: 2px solid var(--theme-border);
+        flex-direction: column;
+        padding: 30px;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        z-index: 999;
+    }
+    
+    .nav-menu.active {
+        left: 0;
+    }
+    
+    .hero-content h1 {
+        font-size: 30px;
+    }
+    
+    .steps-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .ticket-body {
+        grid-template-columns: 1fr;
+    }
+    
+    .ticket-payment-state {
+        align-items: flex-start;
+        border-left: none;
+        border-top: 1px solid var(--theme-border);
+        padding-left: 0;
+        padding-top: 15px;
+    }
+}
+/* ===== TAMBAHAN FITUR BARU ===== */
+
+/* Tombol Data Booking di navbar pelanggan */
+.btn-data-booking {
+    background-color: #059669;
+    color: white;
+    border: none;
+    padding: 7px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: background var(--transition-speed);
+}
+
+.btn-data-booking:hover {
+    background-color: #047857;
+}
+
+/* Navbar: pastikan item tidak terlalu berdempetan */
+.nav-menu {
+    gap: 14px;
+}
+
+.nav-link {
+    font-size: 13.5px;
+    padding: 4px 2px;
+}
+
+/* Show/hide password wrapper */
+.input-password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-password-wrapper input {
+    flex: 1;
+    padding-right: 44px;
+}
+
+.btn-toggle-pw {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--theme-text-secondary);
+    font-size: 15px;
+    padding: 4px;
+    line-height: 1;
+    transition: color var(--transition-speed);
+    z-index: 2;
+}
+
+.btn-toggle-pw:hover {
+    color: var(--primary-color);
+}
+
+/* Form daftar scrollable */
+.auth-form-scroll {
+    max-height: 65vh;
+    overflow-y: auto;
+    padding-right: 4px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--theme-border) transparent;
+}
+
+.auth-form-scroll::-webkit-scrollbar {
+    width: 5px;
+}
+.auth-form-scroll::-webkit-scrollbar-thumb {
+    background: var(--theme-border);
+    border-radius: 4px;
+}
+
+/* Payment modal scrollable */
+.payment-modal-scroll {
+    max-height: 88vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--theme-border) transparent;
+}
+
+.payment-modal-scroll::-webkit-scrollbar {
+    width: 5px;
+}
+.payment-modal-scroll::-webkit-scrollbar-thumb {
+    background: var(--theme-border);
+    border-radius: 4px;
+}
+
+/* ============================================================
+   PERBAIKAN #2: NAVBAR ACTIVE - INDIKATOR GARIS BAWAH
+   ============================================================ */
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 12px;
+    right: 12px;
+    height: 2px;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+    transition: all var(--transition-speed) ease;
+}
+
+/* ============================================================
+   PERBAIKAN #3: STATUS KETERSEDIAAN MOBIL DI KARTU
+   ============================================================ */
+
+/* Indikator status tersedia / sedang disewa */
+.car-status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+}
+
+.car-status-indicator.tersedia {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+.car-status-indicator.disewa {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
+body.dark-theme .car-status-indicator.tersedia {
+    background-color: rgba(21, 128, 61, 0.2);
+    color: #4ade80;
+}
+
+body.dark-theme .car-status-indicator.disewa {
+    background-color: rgba(220, 38, 38, 0.2);
+    color: #f87171;
+}
+
+/* Tombol "Sedang Disewa" - tidak bisa diklik */
+.btn-sedang-disewa {
+    background-color: #9ca3af !important;
+    color: white !important;
+    cursor: not-allowed !important;
+    opacity: 0.75;
+    pointer-events: none;
+}
+
+/* ============================================================
+   PERBAIKAN #4: FIELD STOK MOBIL DI ADMIN - FORM & TABEL
+   ============================================================ */
+.stock-info-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 4px;
+}
+
+.stock-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.stock-badge.total {
+    background-color: rgba(13, 110, 253, 0.1);
+    color: var(--primary-color);
+}
+
+.stock-badge.tersedia {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+.stock-badge.disewa {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
+body.dark-theme .stock-badge.tersedia {
+    background-color: rgba(21, 128, 61, 0.2);
+    color: #4ade80;
+}
+
+body.dark-theme .stock-badge.disewa {
+    background-color: rgba(220, 38, 38, 0.2);
+    color: #f87171;
+}
+
+/* Tombol +/- stok di admin */
+.stock-control {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.stock-control button {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1px solid var(--theme-border);
+    background-color: var(--theme-card-bg);
+    color: var(--theme-text-primary);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.stock-control button:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.stock-control .stock-num {
+    font-weight: 700;
+    font-size: 14px;
+    min-width: 20px;
+    text-align: center;
+}
+
+/* ============================================================
+   PERBAIKAN #5: TOMBOL SELESAI SEWA DI TABEL TRANSAKSI
+   ============================================================ */
+.btn-selesai-sewa {
+    background-color: #16a34a;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.btn-selesai-sewa:hover {
+    background-color: #15803d;
+    transform: translateY(-1px);
+}
+
+/* ============================================================
+   PERBAIKAN #6: TAMPILAN DENDA KETERLAMBATAN
+   ============================================================ */
+.denda-info-box {
+    background-color: #fef3c7;
+    border: 1px solid #fbbf24;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-top: 8px;
+    font-size: 12px;
+}
+
+body.dark-theme .denda-info-box {
+    background-color: rgba(251, 191, 36, 0.1);
+    border-color: #b45309;
+    color: #fcd34d;
+}
+
+.denda-info-box strong {
+    color: #b45309;
+}
+
+body.dark-theme .denda-info-box strong {
+    color: #fcd34d;
+}
+
+.denda-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
+body.dark-theme .denda-badge {
+    background-color: rgba(220, 38, 38, 0.2);
+    color: #f87171;
+}
+
+/* Modal konfirmasi selesai sewa */
+.konfirmasi-selesai-modal {
+    max-width: 460px;
+}
+
+.konfirmasi-selesai-modal .return-date-group {
+    margin: 15px 0;
+}
+
+.konfirmasi-selesai-modal .denda-preview {
+    background-color: var(--theme-bg);
+    border: 1px solid var(--theme-border);
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 10px;
+}
+
+.konfirmasi-selesai-modal .denda-preview p {
+    font-size: 13px;
+    color: var(--theme-text-secondary);
+    margin-bottom: 6px;
+}
+
+.konfirmasi-selesai-modal .denda-preview .denda-total {
+    font-size: 16px;
+    font-weight: 700;
+    color: #dc2626;
+}
+
+/* Riwayat booking pelanggan - tampilkan denda */
+.denda-row {
+    color: #dc2626;
+    font-weight: 600;
+}
+
+.badge-selesai {
+    background-color: #dcfce7;
+    color: #15803d;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+body.dark-theme .badge-selesai {
+    background-color: rgba(21, 128, 61, 0.2);
+    color: #4ade80;
+}
+/* ============================================================
+   INFO DENDA KETERLAMBATAN - Cara Sewa Section
+   ============================================================ */
+.denda-info-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background: linear-gradient(135deg, #fff7ed, #fff3e0);
+    border: 2px solid #f59e0b;
+    border-left: 5px solid #f59e0b;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 32px auto 0;
+    max-width: 760px;
+}
+
+.denda-info-icon {
+    font-size: 28px;
+    color: #f59e0b;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.denda-info-content h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #92400e;
+    margin: 0 0 8px 0;
+}
+
+.denda-info-content p {
+    font-size: 14px;
+    color: #78350f;
+    margin: 0;
+    line-height: 1.6;
+}
+
+body.dark-theme .denda-info-box {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(245, 158, 11, 0.06));
+    border-color: #f59e0b;
+}
+
+body.dark-theme .denda-info-content h4 {
+    color: #fbbf24;
+}
+
+body.dark-theme .denda-info-content p {
+    color: #fde68a;
+}

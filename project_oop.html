@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FourDrive - Layanan Sewa Mobil Terbaik dikota Palu</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="project_oop.css">
+</head>
+<body class="light-theme">
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- TEMPAT GANTI LOGO GAMBAR RENTAL MOBIL ANDA -->
+            <a href="#" class="logo" id="navLogo">
+                <!-- Ganti path src="images/logo-rental.png" dengan file gambar logo Anda sendiri nanti -->
+                <img src="images/logo-rental.png" alt="Logo SewaMobil" class="brand-logo-img" onerror="this.style.display='none'; document.getElementById('fallback-logo-icon').style.display='inline-block';">
+                <i class="fa-solid fa-car-side" id="fallback-logo-icon"></i> 
+                <span>FourDrive</span>
+            </a>
+            
+            <div class="nav-menu" id="navMenu">
+                <a href="#" class="nav-link active" id="navLinkBeranda" onclick="showSection('hero'); updateActiveNavLink('hero');">Beranda</a>
+                <a href="#daftar-mobil" class="nav-link" id="navLinkDaftarMobil" onclick="scrollToSection('daftar-mobil')">Daftar Mobil</a>
+                <a href="#cara-sewa" class="nav-link" id="navLinkCaraSewa" onclick="scrollToSection('cara-sewa')">Cara Sewa</a>
+                <a href="#hubungi-kami" class="nav-link" id="navLinkHubungi" onclick="scrollToSection('hubungi-kami')">Hubungi Kami</a>
+                <button class="btn-data-booking hidden" id="dataBookingNavBtn" onclick="goToMyBookings()"><i class="fa-solid fa-calendar-check"></i> Data Booking</button>
+                <span id="userSessionInfo" class="user-session-info hidden"></span>
+                <button class="btn-admin-panel hidden" id="adminPanelNavBtn" onclick="showSection('adminDashboard')"><i class="fa-solid fa-user-gear"></i> Panel Admin</button>
+                <button class="btn-login-nav" id="authNavBtn" onclick="openLoginModal()">Masuk / Daftar</button>
+            </div>
+
+            <!-- TOGGLE MODE LIGHT/DARK DAN HAMBURGER MENU -->
+            <div class="nav-right-controls">
+                <button id="themeToggleBtn" class="theme-toggle-btn" onclick="toggleThemeMode()" title="Ganti Mode Tampilan">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <div class="nav-toggle" id="navToggle">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- NOTIFICATION SYSTEM -->
+    <div id="toastNotification" class="toast hidden"></div>
+
+    <!-- MAIN HERO & LANDING SECTION -->
+<section id="hero" class="hero-section section-active">
+        <div class="hero-bg">
+            <div class="hero-overlay"></div>
+        </div>
+        
+        <div class="hero-content">
+            <h1>Sewa Mobil Terbaik Untuk Kebutuhan Anda Dikota Palu</h1>
+            <p>Pilihan kendaraan terlengkap, kondisi prima, pelayanan profesional, dan harga terbaik siap menemani setiap perjalanan Anda.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="handleSewaSekarangBtn()">Sewa Sekarang</button>
+                <button class="btn btn-secondary" onclick="scrollToSection('daftar-mobil')">Lihat Daftar Mobil</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- PILIHAN MOBIL KAMI SECTION -->
+    <section id="daftar-mobil" class="cars-section">
+        <div class="section-header">
+            <h2>Pilihan Mobil Kami</h2>
+            <div class="line"></div>
+            <p>Berbagai jenis armada terawat siap pakai untuk keperluan pribadi, bisnis, maupun keluarga.</p>
+        </div>
+        
+        <!-- Filter/Kategori Tambahan -->
+        <div class="car-filter">
+            <button class="filter-btn active" onclick="filterMobil('semua')">Semua</button>
+            <button class="filter-btn" onclick="filterMobil('biasa')">Harian Standard</button>
+            <button class="filter-btn" onclick="filterMobil('premium')">Premium / VIP</button>
+            <button class="filter-btn" onclick="filterMobil('niaga')">Niaga / Pick-Up</button>
+        </div>
+
+        <!-- TEMPAT MENARUH DATA GAMBAR DAN SPESIFIKASI MOBIL (LOKAL INDEX.HTML) 
+             Semua fallback online telah dihapus agar tidak menimpa gambar lokal Anda -->
+        <div class="cars-grid" id="carsGrid" data-catalog-init="true">
+            
+            <!-- Toyota Avanza -->
+            <div class="car-card" data-car-id="201" data-category="biasa" data-brand="101" data-price="300000" data-seats="7" data-transmission="Manual">
+                <img src="gambar/Toyota Avanza.jpeg" alt="Toyota Avanza" class="car-card-img" onerror="this.onerror=null;">
+                <div class="car-card-body">
+                    <span class="car-card-merk">Toyota</span>
+                    <h3 class="car-card-title">Toyota Avanza</h3>
+                    <div class="car-features">
+                        <div class="car-feature-item"><i class="fa-solid fa-users"></i> 7 Kursi</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gears"></i> Manual</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gas-pump"></i> Bensin</div>
+                    </div>
+                    <div class="car-price-block">
+                        <div class="car-price">
+                            <span class="car-price-val">Rp 300.000</span>
+                            <span class="car-price-unit">per hari</span>
+                        </div>
+                        <button class="btn btn-primary btn-sm btn-sewa-action" onclick="startBookingProcess('201')">Sewa</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mitsubishi Xpander -->
+            <div class="car-card" data-car-id="202" data-category="biasa" data-brand="102" data-price="300000" data-seats="7" data-transmission="Automatic">
+                <img src="gambar/Mitshubishi Xpander.jpeg" alt="Mitsubishi Xpander" class="car-card-img" onerror="this.onerror=null; this.src='images/default-car.png';">
+                <div class="car-card-body">
+                    <span class="car-card-merk">Mitsubishi</span>
+                    <h3 class="car-card-title">Mitsubishi Xpander</h3>
+                    <div class="car-features">
+                        <div class="car-feature-item"><i class="fa-solid fa-users"></i> 7 Kursi</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gears"></i> Automatic</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gas-pump"></i> Bensin</div>
+                    </div>
+                    <div class="car-price-block">
+                        <div class="car-price">
+                            <span class="car-price-val">Rp 300.000</span>
+                            <span class="car-price-unit">per hari</span>
+                        </div>
+                        <button class="btn btn-primary btn-sm btn-sewa-action" onclick="startBookingProcess('202')">Sewa</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toyota Agya -->
+            <div class="car-card" data-car-id="203" data-category="biasa" data-brand="101" data-price="300000" data-seats="5" data-transmission="Automatic">
+                <img src="gambar/Toyota Agya.jpeg" alt="Toyota Agya" class="car-card-img" onerror="this.onerror=null; this.src='images/default-car.png';">
+                <div class="car-card-body">
+                    <span class="car-card-merk">Toyota</span>
+                    <h3 class="car-card-title">Toyota Agya</h3>
+                    <div class="car-features">
+                        <div class="car-feature-item"><i class="fa-solid fa-users"></i> 5 Kursi</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gears"></i> Automatic</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gas-pump"></i> Bensin</div>
+                    </div>
+                    <div class="car-price-block">
+                        <div class="car-price">
+                            <span class="car-price-val">Rp 300.000</span>
+                            <span class="car-price-unit">per hari</span>
+                        </div>
+                        <button class="btn btn-primary btn-sm btn-sewa-action" onclick="startBookingProcess('203')">Sewa</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Honda Brio -->
+            <div class="car-card" data-car-id="204" data-category="biasa" data-brand="103" data-price="300000" data-seats="5" data-transmission="Manual">
+                <img src="gambar/Honda Brio.jpeg" alt="Honda Brio" class="car-card-img" onerror="this.onerror=null; this.src='images/default-car.png';">
+                <div class="car-card-body">
+                    <span class="car-card-merk">Honda</span>
+                    <h3 class="car-card-title">Honda Brio</h3>
+                    <div class="car-features">
+                        <div class="car-feature-item"><i class="fa-solid fa-users"></i> 5 Kursi</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gears"></i> Manual</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gas-pump"></i> Bensin</div>
+                    </div>
+                    <div class="car-price-block">
+                        <div class="car-price">
+                            <span class="car-price-val">Rp 300.000</span>
+                            <span class="car-price-unit">per hari</span>
+                        </div>
+                        <button class="btn btn-primary btn-sm btn-sewa-action" onclick="startBookingProcess('204')">Sewa</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toyota Calya -->
+            <div class="car-card" data-car-id="205" data-category="biasa" data-brand="101" data-price="300000" data-seats="7" data-transmission="Manual">
+                <img src="gambar/Toyota Calya.jpeg" alt="Toyota Calya" class="car-card-img" onerror="this.onerror=null; this.src='images/default-car.png';">
+                <div class="car-card-body">
+                    <span class="car-card-merk">Toyota</span>
+                    <h3 class="car-card-title">Toyota Calya</h3>
+                    <div class="car-features">
+                        <div class="car-feature-item"><i class="fa-solid fa-users"></i> 7 Kursi</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gears"></i> Manual</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gas-pump"></i> Bensin</div>
+                    </div>
+                    <div class="car-price-block">
+                        <div class="car-price">
+                            <span class="car-price-val">Rp 300.000</span>
+                            <span class="car-price-unit">per hari</span>
+                        </div>
+                        <button class="btn btn-primary btn-sm btn-sewa-action" onclick="startBookingProcess('205')">Sewa</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Avanza Veloz -->
+            <div class="car-card" data-car-id="206" data-category="biasa" data-brand="101" data-price="350000" data-seats="7" data-transmission="Automatic">
+                <img src="gambar/Toyota Veloz.jpeg" alt="Avanza Veloz" class="car-card-img" onerror="this.onerror=null; this.src='images/default-car.png';">
+                <div class="car-card-body">
+                    <span class="car-card-merk">Toyota</span>
+                    <h3 class="car-card-title">Avanza Veloz</h3>
+                    <div class="car-features">
+                        <div class="car-feature-item"><i class="fa-solid fa-users"></i> 7 Kursi</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gears"></i> Automatic</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gas-pump"></i> Bensin</div>
+                    </div>
+                    <div class="car-price-block">
+                        <div class="car-price">
+                            <span class="car-price-val">Rp 350.000</span>
+                            <span class="car-price-unit">per hari</span>
+                        </div>
+                        <button class="btn btn-primary btn-sm btn-sewa-action" onclick="startBookingProcess('206')">Sewa</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Daihatsu Xenia FWD -->
+            <div class="car-card" data-car-id="207" data-category="biasa" data-brand="104" data-price="350000" data-seats="7" data-transmission="Manual">
+                <img src="gambar/Daihatsu Xenia FWD.jpeg" alt="Daihatsu Xenia FWD" class="car-card-img" onerror="this.onerror=null; this.src='images/default-car.png';">
+                <div class="car-card-body">
+                    <span class="car-card-merk">Daihatsu</span>
+                    <h3 class="car-card-title">Daihatsu Xenia FWD</h3>
+                    <div class="car-features">
+                        <div class="car-feature-item"><i class="fa-solid fa-users"></i> 7 Kursi</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gears"></i> Manual</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gas-pump"></i> Bensin</div>
+                    </div>
+                    <div class="car-price-block">
+                        <div class="car-price">
+                            <span class="car-price-val">Rp 350.000</span>
+                            <span class="car-price-unit">per hari</span>
+                        </div>
+                        <button class="btn btn-primary btn-sm btn-sewa-action" onclick="startBookingProcess('207')">Sewa</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Daihatsu Terios -->
+            <div class="car-card" data-car-id="208" data-category="biasa" data-brand="104" data-price="350000" data-seats="7" data-transmission="Manual">
+                <img src="gambar/Daihatsu Terios.jpeg" alt="Daihatsu Terios" class="car-card-img" onerror="this.onerror=null; this.src='images/default-car.png';">
+                <div class="car-card-body">
+                    <span class="car-card-merk">Daihatsu</span>
+                    <h3 class="car-card-title">Daihatsu Terios</h3>
+                    <div class="car-features">
+                        <div class="car-feature-item"><i class="fa-solid fa-users"></i> 7 Kursi</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gears"></i> Manual</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gas-pump"></i> Bensin</div>
+                    </div>
+                    <div class="car-price-block">
+                        <div class="car-price">
+                            <span class="car-price-val">Rp 350.000</span>
+                            <span class="car-price-unit">per hari</span>
+                        </div>
+                        <button class="btn btn-primary btn-sm btn-sewa-action" onclick="startBookingProcess('208')">Sewa</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toyota Rush -->
+            <div class="car-card" data-car-id="209" data-category="biasa" data-brand="101" data-price="350000" data-seats="7" data-transmission="Automatic">
+                <img src="gambar/Toyota Rush.jpeg" alt="Toyota Rush" class="car-card-img" onerror="this.onerror=null; this.src='images/default-car.png';">
+                <div class="car-card-body">
+                    <span class="car-card-merk">Toyota</span>
+                    <h3 class="car-card-title">Toyota Rush</h3>
+                    <div class="car-features">
+                        <div class="car-feature-item"><i class="fa-solid fa-users"></i> 7 Kursi</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gears"></i> Automatic</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gas-pump"></i> Bensin</div>
+                    </div>
+                    <div class="car-price-block">
+                        <div class="car-price">
+                            <span class="car-price-val">Rp 350.000</span>
+                            <span class="car-price-unit">per hari</span>
+                        </div>
+                        <button class="btn btn-primary btn-sm btn-sewa-action" onclick="startBookingProcess('209')">Sewa</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Xenia 2021 -->
+            <div class="car-card" data-car-id="210" data-category="biasa" data-brand="104" data-price="350000" data-seats="7" data-transmission="Manual">
+                <img src="gambar/Xenia 2021.jpeg" alt="Xenia 2021" class="car-card-img" onerror="this.onerror=null; this.src='images/default-car.png';">
+                <div class="car-card-body">
+                    <span class="car-card-merk">Daihatsu</span>
+                    <h3 class="car-card-title">Xenia 2021</h3>
+                    <div class="car-features">
+                        <div class="car-feature-item"><i class="fa-solid fa-users"></i> 7 Kursi</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gears"></i> Manual</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gas-pump"></i> Bensin</div>
+                    </div>
+                    <div class="car-price-block">
+                        <div class="car-price">
+                            <span class="car-price-val">Rp 350.000</span>
+                            <span class="car-price-unit">per hari</span>
+                        </div>
+                        <button class="btn btn-primary btn-sm btn-sewa-action" onclick="startBookingProcess('210')">Sewa</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pick Up Suzuki Carry -->
+            <div class="car-card" data-car-id="211" data-category="niaga" data-brand="105" data-price="350000" data-seats="2" data-transmission="Manual">
+                <img src="gambar/Suzuki Carry Pick Up.jpeg" alt="Pick Up Suzuki Carry" class="car-card-img" onerror="this.onerror=null; this.src='images/default-car.png';">
+                <div class="car-card-body">
+                    <span class="car-card-merk">Suzuki</span>
+                    <h3 class="car-card-title">Pick Up Suzuki Carry</h3>
+                    <div class="car-features">
+                        <div class="car-feature-item"><i class="fa-solid fa-users"></i> 2 Kursi</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gears"></i> Manual</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gas-pump"></i> Bensin</div>
+                    </div>
+                    <div class="car-price-block">
+                        <div class="car-price">
+                            <span class="car-price-val">Rp 350.000</span>
+                            <span class="car-price-unit">per hari</span>
+                        </div>
+                        <button class="btn btn-primary btn-sm btn-sewa-action" onclick="startBookingProcess('211')">Sewa</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Innova Reborn -->
+            <div class="car-card" data-car-id="212" data-category="biasa" data-brand="101" data-price="450000" data-seats="7" data-transmission="Automatic">
+                <img src="gambar/Toyota Innova Venturer.jpeg" alt="Innova Venturer" class="car-card-img" onerror="this.onerror=null; this.src='images/default-car.png';">
+                <div class="car-card-body">
+                    <span class="car-card-merk">Toyota</span>
+                    <h3 class="car-card-title">Innova Venturer</h3>
+                    <div class="car-features">
+                        <div class="car-feature-item"><i class="fa-solid fa-users"></i> 7 Kursi</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gears"></i> Automatic</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gas-pump"></i> Diesel</div>
+                    </div>
+                    <div class="car-price-block">
+                        <div class="car-price">
+                            <span class="car-price-val">Rp 450.000</span>
+                            <span class="car-price-unit">per hari</span>
+                        </div>
+                        <button class="btn btn-primary btn-sm btn-sewa-action" onclick="startBookingProcess('212')">Sewa</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Innova Diesel 2019 -->
+            <div class="car-card" data-car-id="213" data-category="biasa" data-brand="101" data-price="550000" data-seats="7" data-transmission="Manual">
+                <img src="gambar/innova diesel 2019.jpeg" alt="Innova Diesel 2019" class="car-card-img" onerror="this.onerror=null; this.src='images/default-car.png';">
+                <div class="car-card-body">
+                    <span class="car-card-merk">Toyota</span>
+                    <h3 class="car-card-title">Innova Diesel 2019</h3>
+                    <div class="car-features">
+                        <div class="car-feature-item"><i class="fa-solid fa-users"></i> 7 Kursi</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gears"></i> Manual</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gas-pump"></i> Diesel</div>
+                    </div>
+                    <div class="car-price-block">
+                        <div class="car-price">
+                            <span class="car-price-val">Rp 550.000</span>
+                            <span class="car-price-unit">per hari</span>
+                        </div>
+                        <button class="btn btn-primary btn-sm btn-sewa-action" onclick="startBookingProcess('213')">Sewa</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Innova Zenix -->
+            <div class="car-card" data-car-id="214" data-category="biasa" data-brand="101" data-price="750000" data-seats="7" data-transmission="Automatic">
+                <img src="gambar/Toyota Innova Zenix.jpeg" alt="Innova Zenix" class="car-card-img" onerror="this.onerror=null; this.src='images/default-car.png';">
+                <div class="car-card-body">
+                    <span class="car-card-merk">Toyota</span>
+                    <h3 class="car-card-title">Innova Zenix</h3>
+                    <div class="car-features">
+                        <div class="car-feature-item"><i class="fa-solid fa-users"></i> 7 Kursi</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gears"></i> Automatic</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gas-pump"></i> Bensin</div>
+                    </div>
+                    <div class="car-price-block">
+                        <div class="car-price">
+                            <span class="car-price-val">Rp 750.000</span>
+                            <span class="car-price-unit">per hari</span>
+                        </div>
+                        <button class="btn btn-primary btn-sm btn-sewa-action" onclick="startBookingProcess('214')">Sewa</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fortuner VRZ -->
+            <div class="car-card" data-car-id="215" data-category="premium" data-brand="101" data-price="1250000" data-seats="7" data-transmission="Automatic">
+                <img src="gambar/Toyota Fortuner VRZ.jpeg" alt="Fortuner VRZ" class="car-card-img" onerror="this.onerror=null; this.src='images/default-car.png';">
+                <div class="car-card-body">
+                    <span class="car-card-merk">Toyota</span>
+                    <h3 class="car-card-title">Fortuner VRZ</h3>
+                    <div class="car-features">
+                        <div class="car-feature-item"><i class="fa-solid fa-users"></i> 7 Kursi</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gears"></i> Automatic</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gas-pump"></i> Diesel</div>
+                    </div>
+                    <div class="car-price-block">
+                        <div class="car-price">
+                            <span class="car-price-val">Rp 1.250.000</span>
+                            <span class="car-price-unit">per hari</span>
+                        </div>
+                        <button class="btn btn-primary btn-sm btn-sewa-action" onclick="startBookingProcess('215')">Sewa</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pajero Sport -->
+            <div class="car-card" data-car-id="216" data-category="premium" data-brand="102" data-price="1300000" data-seats="7" data-transmission="Automatic">
+                <img src="gambar/Mitshubishi Pajero Sport.jpeg" alt="Mitsubishi Pajero Sport" class="car-card-img" onerror="this.onerror=null; this.src='images/default-car.png';">
+                <div class="car-card-body">
+                    <span class="car-card-merk">Mitsubishi</span>
+                    <h3 class="car-card-title">MitsubishiPajero Sport</h3>
+                    <div class="car-features">
+                        <div class="car-feature-item"><i class="fa-solid fa-users"></i> 7 Kursi</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gears"></i> Automatic</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gas-pump"></i> Diesel</div>
+                    </div>
+                    <div class="car-price-block">
+                        <div class="car-price">
+                            <span class="car-price-val">Rp 1.300.000</span>
+                            <span class="car-price-unit">per hari</span>
+                        </div>
+                        <button class="btn btn-primary btn-sm btn-sewa-action" onclick="startBookingProcess('216')">Sewa</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hilux Double Cabin 4x4 -->
+            <div class="car-card" data-car-id="217" data-category="niaga" data-brand="101" data-price="1450000" data-seats="5" data-transmission="Manual">
+                <img src="gambar/Hilux Double Cabin 4x4.jpeg" alt="Hilux Double Cabin" class="car-card-img" onerror="this.onerror=null; this.src='images/default-car.png';">
+                <div class="car-card-body">
+                    <span class="car-card-merk">Toyota</span>
+                    <h3 class="car-card-title">Hilux Double Cabin 4x4</h3>
+                    <div class="car-features">
+                        <div class="car-feature-item"><i class="fa-solid fa-users"></i> 5 Kursi</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gears"></i> Manual</div>
+                        <div class="car-feature-item"><i class="fa-solid fa-gas-pump"></i> Diesel</div>
+                    </div>
+                    <div class="car-price-block">
+                        <div class="car-price">
+                            <span class="car-price-val">Rp 1.450.000</span>
+                            <span class="car-price-unit">per hari</span>
+                        </div>
+                        <button class="btn btn-primary btn-sm btn-sewa-action" onclick="startBookingProcess('217')">Sewa</button>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- CARA SEWA MOBIL SECTION -->
+    <section id="cara-sewa" class="steps-section">
+        <div class="section-header">
+            <h2>Cara Sewa Mobil </h2>
+            <div class="line"></div>
+        </div>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+                <h3>Pilih Mobil</h3>
+                <p>Temukan armada yang sesuai dengan kapasitas dan kebutuhan kenyamanan perjalanan Anda dari katalog kami yang luas.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-icon">
+                    <i class="fa-solid fa-calendar-days"></i>
+                </div>
+                <h3>Pilih Tanggal</h3>
+                <p>Tentukan kapan Anda akan mulai menggunakan mobil serta durasi sewa melalui kalender pemesanan interaktif kami.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-icon">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h3>Nikmati Perjalanan</h3>
+                <p>Selesaikan proses administrasi pembayaran, lalu Anda siap berkendara dengan aman dan nyaman sampai tujuan.</p>
+            </div>
+        </div>
+
+        <!-- INFO DENDA KETERLAMBATAN -->
+        <div class="denda-info-box">
+            <div class="denda-info-icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <div class="denda-info-content">
+                <h2>Perhatian: Denda Keterlambatan Pengembalian</h2>
+                <p>Pelanggan yang <strong>terlambat mengembalikan mobil</strong> melebihi tanggal yang telah disepakati akan dikenakan <strong>denda sebesar Rp 100.000 per hari</strong> keterlambatan. Pastikan Anda mengembalikan kendaraan tepat waktu untuk menghindari biaya tambahan.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- HUBUNGI KAMI SECTION -->
+    <section id="hubungi-kami" class="contact-section">
+        <div class="section-header">
+            <h2>Hubungi Kami</h2>
+            <div class="line"></div>
+        </div>
+        <div class="contact-container">
+            <!-- Bagian Kiri: Informasi Kontak -->
+            <div class="contact-info">
+                <h3>Informasi Kontak</h3>
+                <p>Kami siap melayani kebutuhan konsultasi armada, keluhan, dan informasi penyewaan 24 jam sehari.</p>
+                
+                <div class="contact-links">
+                    <!-- LINK WA ADMIN SESUAI NOMOR ANDA -->
+                    <a href="https://wa.me/6281241277050?text=Halo%20Saya%20ingin%20booking%20mobil" target="_blank" class="contact-item wa">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <div>
+                            <span>WhatsApp Admin</span>
+                            <strong>+62 812-4127-7050</strong>
+                        </div>
+                    </a>
+                    
+                    <!-- LOKASI PENEMPATAN LINK INSTAGRAM -->
+                    <a href="https://www.instagram.com/fourdrive_?igsh=MXh4cDN6NWdvOTAycA==" target="_blank" class="contact-item ig">
+                        <i class="fa-brands fa-instagram"></i>
+                        <div>
+                            <span>Instagram Kami</span>
+                            <strong>@fourdrive</strong>
+                        </div>
+
+                    </a>
+                    
+                    <!-- LOKASI PENEMPATAN LINK TIKTOK -->
+                    <a href="https://www.tiktok.com/@fourdrive_?_r=1&_t=ZS-96iG8Xf4FhR" target="_blank" class="contact-item tt">
+                        <i class="fa-brands fa-tiktok"></i>
+                        <div>
+                            <span>TikTok Kami</span>
+                            <strong>@fourdrive_</strong>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Bagian Kanan: Map Lokasi (Sesuai Koordinat yang Anda Berikan) -->
+            <div class="contact-map">
+                <h3>Lokasi Kami</h3>
+                <div class="map-wrapper">
+                    <!-- Google Maps Embed dengan titik koordinat (-0.840832427548181, 119.90572903853355) -->
+                    <iframe 
+                        src="https://maps.google.com/maps?q=-0.840832427548181,119.90572903853355&z=15&output=embed" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AUTH MODAL (MASUK & DAFTAR) -->
+    <div id="authModal" class="modal-overlay hidden">
+        <div class="auth-modal">
+            <button class="close-modal" onclick="closeAuthModal()">&times;</button>
+            
+            <div class="auth-tabs">
+                <button id="tabMasuk" class="tab-btn active" onclick="switchAuthTab('masuk')">Masuk</button>
+                <button id="tabDaftar" class="tab-btn" onclick="switchAuthTab('daftar')">Daftar Baru</button>
+            </div>
+
+            <!-- FORM LOGIN (MASUK) -->
+            <form id="formMasuk" class="auth-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="loginEmail">Alamat Email</label>
+                    <input type="email" id="loginEmail" required placeholder="nama@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Kata Sandi</label>
+                    <div class="input-password-wrapper">
+                        <input type="password" id="loginPassword" required placeholder="Masukkan kata sandi">
+                        <button type="button" class="btn-toggle-pw" onclick="togglePasswordVisibility('loginPassword', this)" tabindex="-1"><i class="fa-solid fa-eye"></i></button>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-full">Masuk Sekarang</button>
+                <p class="auth-helper">Belum punya akun? <a href="#" onclick="switchAuthTab('daftar')">Daftar sekarang</a></p>
+            </form>
+
+            <!-- FORM DAFTAR -->
+            <form id="formDaftar" class="auth-form auth-form-scroll hidden" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="regNama">Nama Lengkap</label>
+                    <input type="text" id="regNama" required placeholder="Nama Lengkap sesuai KTP">
+                </div>
+                <div class="form-group">
+                    <label for="regNik">NIK KTP (Wajib 16 Digit)</label>
+                    <input type="number" id="regNik" required placeholder="Contoh: 327501XXXXXXXXXX">
+                    <span class="input-desc" id="nikWarning">Karakter harus tepat 16 digit.</span>
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Alamat Email</label>
+                    <input type="email" id="regEmail" required placeholder="nama@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="regWhatsapp">Nomor WhatsApp</label>
+                    <input type="tel" id="regWhatsapp" required placeholder="Contoh: 08123456789">
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Kata Sandi</label>
+                    <div class="input-password-wrapper">
+                        <input type="password" id="regPassword" required placeholder="Minimal 6 karakter, angka & simbol" oninput="validatePasswordStrength()">
+                        <button type="button" class="btn-toggle-pw" onclick="togglePasswordVisibility('regPassword', this)" tabindex="-1"><i class="fa-solid fa-eye"></i></button>
+                    </div>
+                    <span class="password-strength-text" id="passStrengthMsg"></span>
+                </div>
+                <div class="form-group">
+                    <label for="regPasswordConfirm">Konfirmasi Sandi</label>
+                    <div class="input-password-wrapper">
+                        <input type="password" id="regPasswordConfirm" required placeholder="Ulangi kata sandi Anda" oninput="validateConfirmPassword()">
+                        <button type="button" class="btn-toggle-pw" onclick="togglePasswordVisibility('regPasswordConfirm', this)" tabindex="-1"><i class="fa-solid fa-eye"></i></button>
+                    </div>
+                    <span class="password-strength-text" id="confirmPassMsg"></span>
+                </div>
+                <button type="submit" class="btn btn-primary w-full">Selesaikan Pendaftaran</button>
+                <p class="auth-helper">Sudah punya akun? <a href="#" onclick="switchAuthTab('masuk')">Masuk di sini</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- CUSTOMER DASHBOARD OVERVIEW & BOOKING SYSTEM (SETELAH LOGIN PELANGGAN) -->
+    <section id="customerDashboard" class="customer-dashboard hidden">
+        <div class="dashboard-header-bg">
+            <div class="container">
+                <h2>Selamat Datang, <span id="custDashboardName">Pelanggan</span></h2>
+                <p>Silakan pilih armada di bawah ini untuk memulai booking baru, atau tinjau pesanan aktif Anda.</p>
+            </div>
+        </div>
+
+        <div class="dashboard-container">
+            <!-- Tab Menu Dashboard Pelanggan -->
+            <div class="dashboard-tabs">
+                <button class="dash-tab active" onclick="switchDashTab('dash-booking-new')">Pesan Mobil Baru</button>
+                <button class="dash-tab" onclick="switchDashTab('dash-my-booking')">Riwayat & Data Booking Anda (<span id="myBookingCount">0</span>)</button>
+            </div>
+
+            <!-- KONTEN: PESAN MOBIL BARU -->
+            <div id="dash-booking-new" class="dash-content-pane active">
+                <div class="select-car-notice">
+                    <p><i class="fa-solid fa-circle-info"></i> Silakan gulir ke bagian <strong>Pilihan Mobil Kami</strong> di atas atau pilih langsung dari ringkasan cepat di bawah ini, lalu klik tombol <strong>Sewa Sekarang / Pesan</strong>.</p>
+                </div>
+                <div id="quickCarSelection" class="quick-cars-grid">
+                    <!-- Rendered dynamically -->
+                </div>
+            </div>
+
+            <!-- KONTEN: RIWAYAT TRANSAKSI PELANGGAN -->
+            <div id="dash-my-booking" class="dash-content-pane">
+                <div id="myBookingContainer" class="my-booking-list">
+                    <!-- Rendered dynamically -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BOOKING FORM MODAL -->
+    <div id="bookingModal" class="modal-overlay hidden">
+        <div class="booking-modal-container">
+            <button class="close-modal" onclick="closeBookingModal()">&times;</button>
+            <h2 class="booking-modal-title">Formulir Booking Kendaraan</h2>
+            
+            <div class="booking-split-layout">
+                <!-- Bagian Kiri Form Input -->
+                <div class="booking-form-left">
+                    <form id="formPemesanan" onsubmit="submitBooking(event)">
+                        <div class="form-group">
+                            <label>Nama Mobil Terpilih</label>
+                            <input type="text" id="bookNamaMobil" readonly class="readonly-input">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="bookTglMulai">Tanggal Mulai Sewa</label>
+                                <input type="date" id="bookTglMulai" required onchange="calculateBookingPrice()">
+                            </div>
+                            <div class="form-group">
+                                <label for="bookTglSelesai">Tanggal Selesai Sewa</label>
+                                <input type="date" id="bookTglSelesai" required onchange="calculateBookingPrice()">
+                            </div>
+                        </div>
+
+                        <!-- OPSI SOPIR -->
+                        <div class="sopir-option-box">
+                            <input type="checkbox" id="bookPakaiSopir" onchange="calculateBookingPrice()">
+                            <label for="bookPakaiSopir">
+                                <strong>Gunakan Jasa Sopir (+Rp 150.000 / Hari)</strong>
+                                <span>Nikmati perjalanan santai tanpa lelah menyetir sendiri.</span>
+                            </label>
+                        </div>
+
+                        <div class="booking-action-buttons">
+                            <!-- TOMBOL BATALKAN UNTUK PEMESANAN AKTIF -->
+                            <button type="button" class="btn btn-secondary btn-batalkan" onclick="closeBookingModal()">Batalkan</button>
+                            <button type="submit" class="btn btn-success"><i class="fa-solid fa-receipt"></i> Buat Pesanan (Booking)</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Bagian Kanan Ringkasan Harga -->
+                <div class="booking-summary-right">
+                    <h3>Ringkasan Harga Sewa</h3>
+                    <div class="summary-details">
+                        <div class="summary-row">
+                            <span>Harga Dasar Mobil (per hari):</span>
+                            <strong id="sumHargaDasar">Rp 0</strong>
+                        </div>
+                        <div class="summary-row">
+                            <span>Durasi Sewa:</span>
+                            <strong id="sumDurasi">0 Hari</strong>
+                        </div>
+                        <div class="summary-row">
+                            <span>Biaya Jasa Sopir:</span>
+                            <strong id="sumBiayaSopir">Rp 0</strong>
+                        </div>
+                        <hr>
+                        <div class="summary-row total-row">
+                            <span>Total Tagihan:</span>
+                            <strong id="sumTotalTagihan">Rp 0</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TRANSFER PAYMENT MODAL (DENGAN QRIS TERINTEGRASI) -->
+    <div id="paymentModal" class="modal-overlay hidden">
+        <div class="payment-modal-container payment-modal-scroll">
+            <h2>Penyelesaian Pembayaran & Transfer</h2>
+            <div class="line"></div>
+            
+            <div id="paymentDetailsArea">
+                <!-- Data Pelanggan dan Detail Booking -->
+                <div class="payment-summary-box">
+                    <h4>Ringkasan Pesanan Anda:</h4>
+                    <p><strong>Nama Pelanggan:</strong> <span id="payNamaPelanggan"></span></p>
+                    <p><strong>Mobil:</strong> <span id="payMobil"></span></p>
+                    <p><strong>Periode Sewa:</strong> <span id="payPeriode"></span></p>
+                    <p><strong>Total Transfer:</strong> <strong id="payTotal" style="color: var(--primary-color);"></strong></p>
+                </div>
+
+                <div class="form-group">
+                    <label for="payBankSelect">Pilih Metode Pembayaran</label>
+                    <select id="payBankSelect" onchange="updatePaymentMethodDisplay()" required>
+                        <option value="">-- Pilih Metode --</option>
+                        <option value="BCA">Bank BCA</option>
+                        <option value="BNI">Bank BNI</option>
+                        <option value="BRI">Bank BRI</option>
+                        <option value="QRIS">Metode QRIS</option>
+                    </select>
+                </div>
+
+                <!-- Rekening Box -->
+                <div id="bankAccountBox" class="bank-account-box hidden">
+                    <p>Silakan lakukan transfer ke nomor rekening berikut:</p>
+                    <div class="rekening-number">
+                        <span id="bankNameDisplay">BCA</span>: <strong id="bankNumberDisplay">XXXXXXXXX</strong>
+                        <button onclick="copyToClipboard('bankNumberDisplay')" title="Salin Rekening"><i class="fa-regular fa-copy"></i></button>
+                    </div>
+                    <span class="bank-holder">a.n. PT FourDrive</span>
+                </div>
+
+                <!-- METODE QRIS (ILUSTRASI QRIS BISA DIGANTI DI SINI) -->
+                <div id="qrisPaymentBox" class="qris-payment-box hidden">
+                    <p>Pindai Kode QRIS di bawah ini melalui aplikasi E-Wallet atau M-Banking Anda:</p>
+                    <div class="qris-image-wrapper">
+                        <!-- Ganti src="images/qris.png" dengan file gambar QRIS asli Anda -->
+                        <img id="qrisImage" src="images/qris.png" alt="QRIS Code Pembayaran" class="qris-scanner-img" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=SewaMobil_QRIS_Invoice_Sample'">
+                    </div>
+                    <span class="qris-subtitle">PT FourDrive - QRIS GPN</span>
+                </div>
+
+                <div class="form-group" style="margin-top: 15px;">
+                    <label for="payProofFile">Upload Bukti Transfer / Transaksi (Gambar)</label>
+                    <input type="file" id="payProofFile" accept="image/*" required>
+                    <p class="input-desc">Silakan unggah foto struk ATM, screenshot M-Banking, atau struk bayar QRIS Anda.</p>
+                </div>
+
+                <div class="payment-action-buttons">
+                    <button class="btn btn-secondary btn-batalkan" onclick="closePaymentModal()">Bayar Nanti</button>
+                    <button class="btn btn-primary" onclick="submitPaymentProof()">Konfirmasi & Kirim Bukti</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ADMIN DASHBOARD PANEL (CRUD ADMIN KOMPLEKS) -->
+    <section id="adminDashboard" class="admin-dashboard hidden">
+        <div class="admin-top-bar">
+            <h2><i class="fa-solid fa-user-gear"></i> Panel Administrator</h2>
+            <div class="admin-user-info">
+                <span>Aktif sebagai: <strong id="adminNameLabel">Admin</strong></span>
+                <button class="btn btn-danger btn-sm" onclick="handleLogout()"><i class="fa-solid fa-sign-out-alt"></i> Keluar</button>
+            </div>
+        </div>
+
+        <div class="admin-layout">
+            <!-- Sidebar Navigasi Admin -->
+            <aside class="admin-sidebar">
+                <button class="admin-nav-btn active" onclick="switchAdminTab('admin-overview')"><i class="fa-solid fa-chart-line"></i> Ringkasan Utama</button>
+                <button class="admin-nav-btn" onclick="switchAdminTab('admin-merk')"><i class="fa-solid fa-tags"></i> Kelola Data Merk <span id="countMerk">0</span></button>
+                <button class="admin-nav-btn" onclick="switchAdminTab('admin-mobil')"><i class="fa-solid fa-car"></i> Kelola Data Mobil <span id="countMobil">0</span></button>
+                <button class="admin-nav-btn" onclick="switchAdminTab('admin-jenis-bayar')"><i class="fa-solid fa-money-check-dollar"></i> Kelola Jenis Bayar</button>
+                <button class="admin-nav-btn" onclick="switchAdminTab('admin-pemesan')"><i class="fa-solid fa-users-gear"></i> Data Akun & Pemesan</button>
+                <button class="admin-nav-btn" id="pendingTransBtn" onclick="switchAdminTab('admin-transaksi')"><i class="fa-solid fa-file-invoice-dollar"></i> Transaksi & Booking <span id="countTransaksi">0</span></button>
+            </aside>
+
+            <!-- Konten Panel Admin -->
+            <main class="admin-main-content">
+                
+                <!-- TAB 1: OVERVIEW -->
+                <div id="admin-overview" class="admin-tab-content active">
+                    <div class="admin-welcome-card">
+                        <h3>Selamat Datang di Dashboard Admin</h3>
+                        <p>Kelola data kendaraan, verifikasi bukti pembayaran sewa mobil, dan pantau aktivitas penyewaan dengan mudah di sini.</p>
+                    </div>
+                    <div class="stats-cards-grid">
+                        <div class="stat-card">
+                            <i class="fa-solid fa-car icon"></i>
+                            <div class="stat-info">
+                                <span class="stat-num" id="statTotalMobil">0</span>
+                                <span class="stat-label">Total Armada</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fa-solid fa-receipt icon"></i>
+                            <div class="stat-info">
+                                <span class="stat-num" id="statTotalPesanan">0</span>
+                                <span class="stat-label">Total Transaksi</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fa-solid fa-wallet icon"></i>
+                            <div class="stat-info">
+                                <span class="stat-num" id="statOmset">Rp 0</span>
+                                <span class="stat-label">Estimasi Omset</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-recent-bookings mt-20">
+                        <h3>Transaksi Booking Terkini</h3>
+                        <div class="table-responsive">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID Booking</th>
+                                        <th>Nama Pemesan</th>
+                                        <th>Mobil</th>
+                                        <th>Total Harga</th>
+                                        <th>Status Pembayaran</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentBookingsTableBody">
+                                    <!-- Terisi otomatis -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: CRUD DATA MERK -->
+                <div id="admin-merk" class="admin-tab-content">
+                    <div class="content-header-crud">
+                        <h3>Kelola Merk / Produsen Mobil</h3>
+                        <button class="btn btn-primary btn-sm" onclick="openMerkModal('tambah')"><i class="fa-solid fa-plus"></i> Tambah Merk Baru</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID Merk</th>
+                                    <th>Nama Merk</th>
+                                    <th>Negara Asal</th>
+                                    <th>Jumlah Mobil Terkait</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="merkTableBody">
+                                <!-- Terisi otomatis -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TAB 3: CRUD DATA MOBIL (PILIHAN LENGKAP) -->
+                <div id="admin-mobil" class="admin-tab-content">
+                    <div class="content-header-crud">
+                        <h3>Daftar & Manajemen Unit Mobil</h3>
+                        <button class="btn btn-primary btn-sm" onclick="openMobilModal('tambah')"><i class="fa-solid fa-plus"></i> Tambah Mobil Baru</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Gambar</th>
+                                    <th>Nama Kendaraan</th>
+                                    <th>Merk</th>
+                                    <th>Kategori</th>
+                                    <th>Harga / Hari</th>
+                                    <th>Kapasitas</th>
+                                    <th>Total Unit</th>
+                                    <th>Tersedia</th>
+                                    <th>Disewa</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="mobilTableBody">
+                                <!-- Terisi otomatis -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TAB 4: JENIS BAYAR -->
+                <div id="admin-jenis-bayar" class="admin-tab-content">
+                    <div class="content-header-crud">
+                        <h3>Metode Pembayaran (Jenis Bayar)</h3>
+                        <button class="btn btn-primary btn-sm" onclick="openJenisBayarModal('tambah')"><i class="fa-solid fa-plus"></i> Tambah Metode</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID Metode</th>
+                                    <th>Nama Bank</th>
+                                    <th>Nomor Rekening</th>
+                                    <th>Atas Nama</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="jenisBayarTableBody">
+                                <!-- Terisi otomatis -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TAB 5: DATA PEMESAN & AKUN -->
+                <div id="admin-pemesan" class="admin-tab-content">
+                    <div class="content-header-crud">
+                        <h3>Data Akun Terdaftar & Pemesan</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Nama Lengkap</th>
+                                    <th>NIK KTP</th>
+                                    <th>Email</th>
+                                    <th>No WhatsApp</th>
+                                    <th>Role</th>
+                                    <th>Hapus Akun</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pemesanTableBody">
+                                <!-- Terisi otomatis -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TAB 6: TRANSAKSI & VERIFIKASI SEWA -->
+                <div id="admin-transaksi" class="admin-tab-content">
+                    <div class="content-header-crud">
+                        <h3>Riwayat Sewa & Verifikasi Pembayaran</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID Booking</th>
+                                    <th>Pemesan</th>
+                                    <th>Mobil</th>
+                                    <th>Sewa Mulai/Selesai</th>
+                                    <th>Sopir</th>
+                                    <th>Total Bayar</th>
+                                    <th>Denda</th>
+                                    <th>Bukti</th>
+                                    <th>Status</th>
+                                    <th>Aksi Verifikasi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="transaksiTableBody">
+                                <!-- Terisi otomatis -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-about">
+                <h3>Four<span>Drive</span></h3>
+                <p>Kami menyediakan armada mobil terlengkap dengan kondisi prima untuk menjamin keamanan dan kenyamanan perjalanan Anda di dalam maupun luar kota.</p>
+            </div>
+            <div class="footer-quick-links">
+                <h4>Navigasi Pintar</h4>
+                <ul>
+                    <li><a href="#" onclick="scrollToSection('hero')">Beranda Utama</a></li>
+                    <li><a href="#daftar-mobil" onclick="scrollToSection('daftar-mobil')">Katalog Mobil</a></li>
+                    <li><a href="#cara-sewa" onclick="scrollToSection('cara-sewa')">Panduan Sewa</a></li>
+                    <li><a href="#hubungi-kami" onclick="scrollToSection('hubungi-kami')">Hubungi Hub Kami</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Kantor Pusat</h4>
+                <p><i class="fa-solid fa-map-location-dot"></i> Jl. Bukit Tadulako No. 02, Kota Palu, Sulawesi Tengah, Indonesia</p>
+                <p><i class="fa-solid fa-envelope"></i> support@fourdrive.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 FourDrive Indonesia. Hak Cipta Dilindungi kelompok 4.</p>
+        </div>
+    </footer>
+
+    <!-- MODAL FORM UNTUK CRUD DATA MERK -->
+    <div id="merkModal" class="modal-overlay hidden">
+        <div class="modal-form-box">
+            <h3 id="merkModalTitle">Tambah Merk Baru</h3>
+            <form id="formMerk" onsubmit="handleMerkSubmit(event)">
+                <input type="hidden" id="merkIdHidden">
+                <div class="form-group">
+                    <label for="merkNama">Nama Merk</label>
+                    <input type="text" id="merkNama" required placeholder="Contoh: Toyota, Mitsubishi">
+                </div>
+                <div class="form-group">
+                    <label for="merkAsal">Negara Asal</label>
+                    <input type="text" id="merkAsal" required placeholder="Contoh: Jepang, Jerman">
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="btn btn-secondary" onclick="closeMerkModal()">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Data</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL FORM UNTUK CRUD DATA MOBIL -->
+    <div id="mobilModal" class="modal-overlay hidden">
+        <div class="modal-form-box wide-modal">
+            <h3 id="mobilModalTitle">Tambah Mobil Baru</h3>
+            <form id="formMobil" onsubmit="handleMobilSubmit(event)">
+                <input type="hidden" id="mobilIdHidden">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="mobilNama">Nama Mobil</label>
+                        <input type="text" id="mobilNama" required placeholder="Contoh: Avanza Veloz">
+                    </div>
+                    <div class="form-group">
+                        <label for="mobilMerkId">Merk Mobil</label>
+                        <select id="mobilMerkId" required>
+                            <!-- Diisi dinamis oleh JS dari data merk -->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="mobilHarga">Harga Sewa / Hari (Rupiah)</label>
+                        <input type="number" id="mobilHarga" required placeholder="Contoh: 350000">
+                    </div>
+                    <div class="form-group">
+                        <label for="mobilKapasitas">Kapasitas Penumpang</label>
+                        <input type="number" id="mobilKapasitas" required placeholder="Contoh: 7">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="mobilKategori">Kategori</label>
+                        <select id="mobilKategori" required>
+                            <option value="biasas">Harian Standard</option>
+                            <option value="premium">Premium / VIP</option>
+                            <option value="niaga">Niaga / Pick-Up</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobilTransmisi">Transmisi</label>
+                        <select id="mobilTransmisi">
+                            <option value="Manual">Manual</option>
+                            <option value="Automatic">Automatic</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- FIELD STOK UNIT KENDARAAN (Perbaikan #4) -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="mobilTotalUnit">Total Unit Tersedia <small style="color:var(--theme-text-secondary)">(Stok Awal)</small></label>
+                        <input type="number" id="mobilTotalUnit" min="0" value="1" placeholder="Contoh: 3">
+                        <span class="input-desc">Jumlah total kendaraan dengan nama yang sama.</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobilImgFile">Gambar Mobil</label>
+                        <input type="file" id="mobilImgFile" accept="image/*" onchange="previewMobilImage(this)">
+                        <input type="hidden" id="mobilImgUrl">
+                        <div id="mobilImgPreview" style="margin-top:8px;display:none;">
+                            <img id="mobilImgPreviewImg" src="" alt="Preview Gambar" style="max-width:180px;max-height:120px;border-radius:8px;border:1px solid var(--theme-border);">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-buttons">
+                    <button type="button" class="btn btn-secondary" onclick="closeMobilModal()">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Armada</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL FORM UNTUK CRUD METODE BAYAR -->
+    <div id="jenisBayarModal" class="modal-overlay hidden">
+        <div class="modal-form-box">
+            <h3 id="jenisBayarModalTitle">Tambah Metode Pembayaran</h3>
+            <form id="formJenisBayar" onsubmit="handleJenisBayarSubmit(event)">
+                <input type="hidden" id="jenisBayarIdHidden">
+                <div class="form-group">
+                    <label for="bayarNamaBank">Nama Bank / QRIS</label>
+                    <input type="text" id="bayarNamaBank" required placeholder="Contoh: BCA, BNI, QRIS">
+                </div>
+                <div class="form-group">
+                    <label for="bayarNorek">Nomor Rekening / Kode QRIS</label>
+                    <input type="text" id="bayarNorek" required placeholder="Contoh: 0123456789 atau ID-QRIS">
+                </div>
+                <div class="form-group">
+                    <label for="bayarAtasNama">Atas Nama Rekening</label>
+                    <input type="text" id="bayarAtasNama" required placeholder="Contoh: PT FourDrive">
+                </div>
+                <div class="form-group">
+                    <label for="bayarQrisFile">Gambar QRIS (Opsional)</label>
+                    <input type="file" id="bayarQrisFile" accept="image/*" onchange="previewQrisImage(this)">
+                    <div id="bayarQrisPreview" style="margin-top:8px;display:none;">
+                        <img id="bayarQrisPreviewImg" src="" alt="Preview QRIS" style="max-width:160px;max-height:160px;border-radius:8px;border:1px solid var(--theme-border);">
+                    </div>
+                    <input type="hidden" id="bayarQrisImgData">
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="btn btn-secondary" onclick="closeJenisBayarModal()">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Metode</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- VIEW PROOF PREVIEW MODAL -->
+    <div id="proofViewModal" class="modal-overlay hidden">
+        <div class="modal-form-box">
+            <h3>Detail Bukti Transfer</h3>
+            <div id="proofImgContainer" class="proof-image-preview-box">
+                <!-- Image tag injected by JS -->
+            </div>
+            <div class="modal-buttons">
+                <button type="button" class="btn btn-primary" onclick="closeProofViewModal()">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL KONFIRMASI SELESAI SEWA (Perbaikan #5 & #6) -->
+    <div id="selesaiSewaModal" class="modal-overlay hidden">
+        <div class="modal-form-box konfirmasi-selesai-modal">
+            <h3><i class="fa-solid fa-flag-checkered"></i> Konfirmasi Selesai Sewa</h3>
+            <p style="color: var(--theme-text-secondary); margin: 10px 0;">Masukkan tanggal kembali aktual untuk menghitung denda keterlambatan (jika ada).</p>
+            
+            <input type="hidden" id="selesaiTrxId">
+            
+            <div class="return-date-group">
+                <label style="font-weight:600; font-size:13px;">Tanggal Kembali Seharusnya:</label>
+                <p id="selesaiTglRencana" style="font-weight:700; color: var(--primary-color); font-size:15px;"></p>
+            </div>
+            
+            <div class="form-group return-date-group">
+                <label for="selesaiTglAktual">Tanggal Kembali Aktual:</label>
+                <input type="date" id="selesaiTglAktual" onchange="hitungDendaPreview()">
+            </div>
+
+            <!-- Preview denda (Perbaikan #6) -->
+            <div class="denda-preview" id="dendaPreviewBox">
+                <p>Jumlah Hari Terlambat: <strong id="previewHariTelat">0 hari</strong></p>
+                <p>Denda Keterlambatan (Rp 100.000/hari):</p>
+                <div class="denda-total" id="previewTotalDenda">Rp 0</div>
+            </div>
+
+            <div class="modal-buttons" style="margin-top: 18px;">
+                <button type="button" class="btn btn-secondary" onclick="closeSelesaiSewaModal()">Batal</button>
+                <button type="button" class="btn" style="background-color:#16a34a; color:white;" onclick="konfirmasiSelesaiSewa()">
+                    <i class="fa-solid fa-check-double"></i> Selesaikan & Kembalikan Stok
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="project_oop.js"></script>
+</body>
+</html>
